@@ -25,7 +25,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, '0.0.0.0');
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -83,9 +83,9 @@ function onError(error) {
 
 function onListening() {
   console.log(`listening${addr}:${port}`);
-  var addr = '127.0.0.1';
+  var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
-    : 'port ' + port;
+    : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
